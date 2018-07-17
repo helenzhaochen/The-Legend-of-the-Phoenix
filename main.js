@@ -5,7 +5,10 @@ function preload() {
     game.load.image('sky', 'assets/sky.png');
     game.load.image('ground', 'assets/platform.png');
     game.load.image('star', 'assets/star.png');
-    game.load.spritesheet('dude', 'assets/dude.png', 32, 48);
+    game.load.image('Princess3s', 'Images/Princess3s.PNG');
+    game.load.spritesheet('baddie', 'assets/baddie.png');
+    game.load.tilemap('level1', 'test2.json', null, Phaser.Tilemap.TILED_JSON);
+    game.load.image('tiles', 'Tileset.png');
     
 }
 
@@ -13,15 +16,21 @@ function preload() {
 
 var keys;
 var players;
+var map;
 var ground;
 var platform;
 
 function create() {
 
-    game.add.sprite(0,0,"sky");
-    game.add.sprite(300,300,'star');
-    game.add.sprite(300,400,'star');
-    game.add.sprite(300,500,'star');
+    map = game.add.tilemap('level1');
+    map.addTilesetImage('map_02', 'tiles');
+    
+    map.createLayer('Ground');
+    
+//    game.add.sprite(0,0,"sky");
+//    game.add.sprite(300,300,'star');
+//    game.add.sprite(300,400,'star');
+//    game.add.sprite(300,500,'star');
 
     // Ground
     platforms = game.add.group();
@@ -39,7 +48,7 @@ function create() {
     ground.body.immovable = true;
     
     //Add dude
-    player = game.add.sprite(32, game.world.height - 150, 'dude');
+    player = game.add.sprite(32, game.world.height - 150, 'Princess3s');
     
     //Enabling dude to move
     game.physics.arcade.enable(player);
