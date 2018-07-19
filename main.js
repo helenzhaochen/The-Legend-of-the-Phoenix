@@ -28,10 +28,11 @@ function create() {
     map.createLayer('Ground');
     
 //    game.add.sprite(0,0,"sky");
-    game.add.sprite(300,300,'star');
-    game.add.sprite(300,400,'star');
-    game.add.sprite(300,500,'star');
-    
+    game.add.sprite(300,300,'coin');
+    game.add.sprite(300,400,'coin');
+    game.add.sprite(300,500,'coin');
+    game.add.sprite(500,350,'coin');
+
     // Ground
     platforms = game.add.group();
     
@@ -48,7 +49,6 @@ function create() {
     ground.body.immovable = true;
     
     //Add dude
-
     player = game.add.sprite(32, game.world.height - 150, 'Princess');
     coin = game.add.sprite(500,350,'coin');
 
@@ -66,14 +66,10 @@ function create() {
     
     //Add animations to player
     player.animations.add('left', [0, 1, 2, 3,], 10, true);
-
+    player.animations.add('right', [5, 6], 10, true);
     
     coin.animations.add('spin',[0,1],10, true);
     coin.animations.play('spin');
-    
-    
-
-    player.animations.add('right', [5, 6], 10, true);
     
 
     // Add ledge
