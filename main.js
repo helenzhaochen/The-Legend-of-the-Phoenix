@@ -6,7 +6,7 @@ function preload() {
     game.load.image('ground', 'assets/platform.png');
     game.load.image('star', 'assets/star.png');
     game.load.image('Princess3s', 'Images/Princess3s.PNG');
-    game.load.spritesheet('baddie', 'assets/baddie.png');
+    game.load.spritesheet('Princess', 'assets/Pixel_princesslr.png', 32,40);
     game.load.tilemap('level1', 'test2.json', null, Phaser.Tilemap.TILED_JSON);
     game.load.image('tiles', 'Tileset.png');
     game.load.spritesheet('coin', 'assets/coin.png',20,22);
@@ -48,21 +48,31 @@ function create() {
     ground.body.immovable = true;
     
     //Add dude
+<<<<<<< HEAD
     player = game.add.sprite(32, game.world.height - 150, 'Princess3s');
     coin = game.add.sprite(500,350,'coin');
+=======
+    player = game.add.sprite(32, game.world.height - 150, 'Princess');
+    
+>>>>>>> 672fd9762cba4d8310bafbcc1a650ba80721712e
     //Enabling dude to move
     game.physics.arcade.enable(player);
     
     //Player Physics properties
-    player.body.gravity.y = 300;
+    player.body.gravity.y = 350;
     
     //Controls
     keys = game.input.keyboard.createCursorKeys();
     
     //Add animations to player
     player.animations.add('left', [0, 1, 2, 3,], 10, true);
+<<<<<<< HEAD
     player.animations.add('right', [5, 6, 7, 8], 10, true);
     coin.animation.add('right'),[]
+=======
+    player.animations.add('right', [5, 6], 10, true);
+    
+>>>>>>> 672fd9762cba4d8310bafbcc1a650ba80721712e
     // Add ledge
     var ledge1 = platforms.create(400, 400, 'ground');
     var ledge2 = platforms.create(-150, 250, 'ground');
