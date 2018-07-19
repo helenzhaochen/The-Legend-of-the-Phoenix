@@ -28,9 +28,9 @@ function create() {
     map.createLayer('Ground');
     
 //    game.add.sprite(0,0,"sky");
-    game.add.sprite(300,300,'star');
-    game.add.sprite(300,400,'star');
-    game.add.sprite(300,500,'star');
+    game.add.sprite(300,300,'coin');
+    game.add.sprite(300,400,'coin');
+    game.add.sprite(300,500,'coin');
     game.add.sprite(500,350,'coin');
     // Ground
     platforms = game.add.group();
@@ -48,13 +48,13 @@ function create() {
     ground.body.immovable = true;
     
     //Add dude
-<<<<<<< HEAD
-    player = game.add.sprite(32, game.world.height - 150, 'Princess3s');
+
+    player = game.add.sprite(32, game.world.height - 150, 'Princess');
     coin = game.add.sprite(500,350,'coin');
-=======
+
     player = game.add.sprite(32, game.world.height - 150, 'Princess');
     
->>>>>>> 672fd9762cba4d8310bafbcc1a650ba80721712e
+
     //Enabling dude to move
     game.physics.arcade.enable(player);
     
@@ -66,13 +66,13 @@ function create() {
     
     //Add animations to player
     player.animations.add('left', [0, 1, 2, 3,], 10, true);
-<<<<<<< HEAD
+    
     player.animations.add('right', [5, 6, 7, 8], 10, true);
-    coin.animation.add('right'),[]
-=======
+    coin.animations.add('right')
+
     player.animations.add('right', [5, 6], 10, true);
     
->>>>>>> 672fd9762cba4d8310bafbcc1a650ba80721712e
+
     // Add ledge
     var ledge1 = platforms.create(400, 400, 'ground');
     var ledge2 = platforms.create(-150, 250, 'ground');
