@@ -9,7 +9,7 @@ function preload() {
     game.load.spritesheet('baddie', 'assets/baddie.png');
     game.load.tilemap('level1', 'test2.json', null, Phaser.Tilemap.TILED_JSON);
     game.load.image('tiles', 'Tileset.png');
-    
+    game.load.spritesheet('coin', 'assets/coin.png',20,22);
 }
 
 //Declare variables outside of functions.
@@ -28,10 +28,10 @@ function create() {
     map.createLayer('Ground');
     
 //    game.add.sprite(0,0,"sky");
-//    game.add.sprite(300,300,'star');
-//    game.add.sprite(300,400,'star');
-//    game.add.sprite(300,500,'star');
-
+    game.add.sprite(300,300,'star');
+    game.add.sprite(300,400,'star');
+    game.add.sprite(300,500,'star');
+    game.add.sprite(500,350,'coin');
     // Ground
     platforms = game.add.group();
     
@@ -49,7 +49,7 @@ function create() {
     
     //Add dude
     player = game.add.sprite(32, game.world.height - 150, 'Princess3s');
-    
+    coin = game.add.sprite(500,350,'coin');
     //Enabling dude to move
     game.physics.arcade.enable(player);
     
@@ -62,7 +62,7 @@ function create() {
     //Add animations to player
     player.animations.add('left', [0, 1, 2, 3,], 10, true);
     player.animations.add('right', [5, 6, 7, 8], 10, true);
-    
+    coin.animation.add('right'),[]
     // Add ledge
     var ledge1 = platforms.create(400, 400, 'ground');
     var ledge2 = platforms.create(-150, 250, 'ground');
