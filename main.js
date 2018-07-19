@@ -32,6 +32,7 @@ function create() {
     game.add.sprite(300,400,'coin');
     game.add.sprite(300,500,'coin');
     game.add.sprite(500,350,'coin');
+
     // Ground
     platforms = game.add.group();
     
@@ -48,11 +49,10 @@ function create() {
     ground.body.immovable = true;
     
     //Add dude
-
     player = game.add.sprite(32, game.world.height - 150, 'Princess');
     coin = game.add.sprite(500,350,'coin');
 
-    player = game.add.sprite(32, game.world.height - 150, 'Princess');
+    
     
 
     //Enabling dude to move
@@ -66,11 +66,10 @@ function create() {
     
     //Add animations to player
     player.animations.add('left', [0, 1, 2, 3,], 10, true);
-    
-    player.animations.add('right', [5, 6, 7, 8], 10, true);
-    coin.animations.add('right')
-
     player.animations.add('right', [5, 6], 10, true);
+    
+    coin.animations.add('spin',[0,1],10, true);
+    coin.animations.play('spin');
     
 
     // Add ledge
@@ -96,6 +95,7 @@ function update() {
         //  Move to the left
         player.body.velocity.x = -150;
         player.animations.play('left');
+        
     }
     else if (keys.right.isDown) {
         //  Move to the right
