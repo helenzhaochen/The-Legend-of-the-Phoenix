@@ -10,6 +10,7 @@ function preload() {
     game.load.tilemap('level1', 'Level1Small.json', null, Phaser.Tilemap.TILED_JSON);
     game.load.image('tiles', 'Tileset.png');
     game.load.spritesheet('coin', 'assets/coin.png',20,22);
+    game.load.spritesheet('arrow','assets/arrow.png')
 }
 
 //Declare variables outside of functions.
@@ -18,7 +19,6 @@ var keys;
 var player;
 var map;
 var ground;
-var platform;
 var bow;
 
 
@@ -30,9 +30,9 @@ function create() {
     map.createLayer('Ground');
 
     // weapon section
-    weapon = game.add.weapon(40, 'bullet');
-    weapon.bulletSpeed = 400;
-    weapon.fireRate = 50;
+    weapon = game.add.weapon(40, 'arrow');
+    weapon.bulletSpeed = 150;
+    weapon.fireRate = 100;
     cursors = this.input.keyboard.createCursorKeys();
 
     fireButton = this.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR);
@@ -70,7 +70,7 @@ function create() {
     game.physics.arcade.enable(player);
     
     //Player Physics properties
-    player.body.gravity.y = 350;
+    player.body.gravity.y = 1000;
     
     //Controls
     keys = game.input.keyboard.createCursorKeys();
@@ -81,6 +81,7 @@ function create() {
     
     coin.animations.add('spin',[0,1],10, true);
     coin.animations.play('spin');
+    weapon.trackSprite(player, 0, 0, true);
     
 
     // Add ledge
