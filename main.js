@@ -1,4 +1,4 @@
-var game = new Phaser.Game(800, 600, Phaser.AUTO, 'game-div', { preload: preload, create: create, update: update });
+var game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, 'game-div', { preload: preload, create: create, update: update });
 
 function preload() {
 
@@ -69,8 +69,7 @@ function create() {
     //Enabling dude to move
     game.physics.arcade.enable(player);
     
-    //Player Physics properties
-    player.body.gravity.y = 1000;
+    
     
     //Controls
     keys = game.input.keyboard.createCursorKeys();
@@ -114,9 +113,20 @@ function update() {
         player.body.velocity.x = 150;
         player.animations.play('right');
     }
+    else if (keys.up.isDown) 
+    {
+        player.body.velocity.y = -250;
+    
+    }
+    
+    else if (keys.down.isDown)
+    {
+        player.body.velocity.y = 250;
+    }
     else {
         //Stop
         player.body.velocity.x = 0;
+        player.body.velocity.y = 0;
         
         //Stand Still
         player.animations.stop();
@@ -124,14 +134,7 @@ function update() {
         // Reset animation frame
         player.frame = 4;
     }
-    
-    if (keys.up.isDown && player.body.touching.down) 
-    {
-        player.body.velocity.y = -350;
-    }
-    
    
-
     if (fireButton.isDown)
     {
         weapon.fire();
