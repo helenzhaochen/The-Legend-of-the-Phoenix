@@ -7,7 +7,7 @@ function preload() {
     game.load.image('star', 'assets/star.png');
     game.load.image('Princess3s', 'Images/Princess3s.PNG');
     game.load.spritesheet('Princess', 'assets/Pixel_princesslr.png', 32,40);
-    game.load.tilemap('level1', 'test2.json', null, Phaser.Tilemap.TILED_JSON);
+    game.load.tilemap('level1', 'Level1Small.json', null, Phaser.Tilemap.TILED_JSON);
     game.load.image('tiles', 'Tileset.png');
     game.load.spritesheet('coin', 'assets/coin.png',20,22);
 }
@@ -23,7 +23,7 @@ var platform;
 function create() {
 
     map = game.add.tilemap('level1');
-    map.addTilesetImage('map_02', 'tiles');
+    map.addTilesetImage('TileSet', 'tiles');
     
     map.createLayer('Ground');
     
