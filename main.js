@@ -1,4 +1,4 @@
-var game = new Phaser.Game(800, 600, Phaser.AUTO, 'game-div', { preload: preload, create: create, update: update });
+var game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, 'game-div', { preload: preload, create: create, update: update });
 
 function preload() {
 
@@ -7,9 +7,10 @@ function preload() {
     game.load.image('star', 'assets/star.png');
     game.load.image('Princess3s', 'Images/Princess3s.PNG');
     game.load.spritesheet('Princess', 'assets/Pixel_princesslr.png', 32,40);
-    game.load.tilemap('level1', 'test2.json', null, Phaser.Tilemap.TILED_JSON);
+    game.load.tilemap('level1', 'Level1Small.json', null, Phaser.Tilemap.TILED_JSON);
     game.load.image('tiles', 'Tileset.png');
     game.load.spritesheet('coin', 'assets/coin.png',20,22);
+    game.load.spritesheet('arrow','assets/arrow.png')
 }
 
 //Declare variables outside of functions.
@@ -18,26 +19,20 @@ var keys;
 var player;
 var map;
 var ground;
-var platform;
 var bow;
 
 
 function create() {
 
     map = game.add.tilemap('level1');
-    map.addTilesetImage('map_02', 'tiles');
+    map.addTilesetImage('TileSet', 'tiles');
     
     map.createLayer('Ground');
-    
-//    game.add.sprite(0,0,"sky");
 
-    game.add.sprite(300,300,'star');
-    game.add.sprite(300,400,'star');
-    game.add.sprite(300,500,'star');
     // weapon section
-    weapon = game.add.weapon(40, 'Arrow');
-    weapon.bulletSpeed = 400;
-    weapon.fireRate = 50;
+    weapon = game.add.weapon(40, 'arrow');
+    weapon.bulletSpeed = 150;
+    weapon.fireRate = 100;
     cursors = this.input.keyboard.createCursorKeys();
 
     fireButton = this.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR);
@@ -73,8 +68,7 @@ function create() {
     //Enabling dude to move
     game.physics.arcade.enable(player);
     
-    //Player Physics properties
-    player.body.gravity.y = 350;
+    
     
     //Controls
     keys = game.input.keyboard.createCursorKeys();
@@ -85,6 +79,7 @@ function create() {
     
     coin.animations.add('spin',[0,1],10, true);
     coin.animations.play('spin');
+    weapon.trackSprite(player, 0, 0, true);
     
 
     // Add ledge
@@ -117,9 +112,20 @@ function update() {
         player.body.velocity.x = 150;
         player.animations.play('right');
     }
+    else if (keys.up.isDown) 
+    {
+        player.body.velocity.y = -250;
+    
+    }
+    
+    else if (keys.down.isDown)
+    {
+        player.body.velocity.y = 250;
+    }
     else {
         //Stop
         player.body.velocity.x = 0;
+        player.body.velocity.y = 0;
         
         //Stand Still
         player.animations.stop();
@@ -127,14 +133,7 @@ function update() {
         // Reset animation frame
         player.frame = 4;
     }
-    
-    if (keys.up.isDown && player.body.touching.down) 
-    {
-        player.body.velocity.y = -350;
-    }
-    
    
-
     if (fireButton.isDown)
     {
         weapon.fire();
