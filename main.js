@@ -108,24 +108,28 @@ function update() {
     
     if (keys.left.isDown) {
         //  Move to the left
-        player.body.velocity.x = -150;
+        player.body.velocity.x = -250;
         player.animations.play('left');
-        
+        player.body.velocity.y = 0;
     }
     else if (keys.right.isDown) {
         //  Move to the right
-        player.body.velocity.x = 150;
+        player.body.velocity.x = 250;
         player.animations.play('right');
+        player.body.velocity.y = 0;
     }
     else if (keys.up.isDown) 
     {
         player.body.velocity.y = -250;
-    
+        player.body.velocity.x = 0;
+ 
     }
     
     else if (keys.down.isDown)
     {
         player.body.velocity.y = 250;
+        player.body.velocity.x = 0;
+
     }
     else {
         //Stop
