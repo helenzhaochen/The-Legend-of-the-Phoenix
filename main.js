@@ -62,7 +62,9 @@ function create() {
     player = game.add.sprite(32, game.world.height - 150, 'Princess');
     coin = game.add.sprite(500,350,'coin');
 
-    
+    game.world.setBounds(0, 0, 1920, 1920);
+    game.camera.follow(player);
+
     
 
     //Enabling dude to move
