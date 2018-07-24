@@ -30,25 +30,24 @@ function create() {
     map.createLayer('Ground');
     
 //    game.add.sprite(0,0,"sky");
-<<<<<<< HEAD
+
     game.add.sprite(300,300,'star');
     game.add.sprite(300,400,'star');
     game.add.sprite(300,500,'star');
     // weapon section
-    weapon = game.add.weapon(40, 'bullet');
+    weapon = game.add.weapon(40, 'Arrow');
     weapon.bulletSpeed = 400;
     weapon.fireRate = 50;
     cursors = this.input.keyboard.createCursorKeys();
 
     fireButton = this.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR);
     
-=======
+
     game.add.sprite(300,300,'coin');
     game.add.sprite(300,400,'coin');
     game.add.sprite(300,500,'coin');
     game.add.sprite(500,350,'coin');
 
->>>>>>> e6015f36e49822ae209e4dddd71d90efc628ef36
     // Ground
     platforms = game.add.group();
     
