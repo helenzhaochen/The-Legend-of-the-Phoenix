@@ -36,12 +36,6 @@ function create() {
     cursors = this.input.keyboard.createCursorKeys();
 
     fireButton = this.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR);
-    
-
-    game.add.sprite(300,300,'coin');
-    game.add.sprite(300,400,'coin');
-    game.add.sprite(300,500,'coin');
-    game.add.sprite(500,350,'coin');
 
 
     // Ground
@@ -61,14 +55,19 @@ function create() {
     
     //Add dude
     player = game.add.sprite(32, game.world.height - 150, 'Princess');
-    coin = game.add.sprite(500,350,'coin');
-
+    coins = game.add.group();
+    coins.create(200,200,'coin');
+    coins.create(300,300,'coin');
+    coins.create(300,400,'coin');
+    coins.create(300,500,'coin');
+    coins.create(500,350,'coin');
+    
     
     
 
     //Enabling dude to move
     game.physics.arcade.enable(player);
-    
+    game.physics.arcade.enable(coins);
     
     
     //Controls
@@ -77,9 +76,9 @@ function create() {
     //Add animations to player
     player.animations.add('left', [0, 1, 2, 3,], 10, true);
     player.animations.add('right', [5, 6], 10, true);
+    coins.callAll('animations.add','animations','spin',[0,1],4, true)
+    coins.callAll('play', null, 'spin')
     
-    coin.animations.add('spin',[0,1],10, true);
-    coin.animations.play('spin');
     weapon.trackSprite(player, 0, 0, true);
     
 
@@ -95,12 +94,17 @@ function create() {
     ledge2.body.immovable = true;
 }
 
+var collectCoin = function(player, coin) {
+  console.log('im on the coin');
+coin.kill()
+};
 function update() {
     //Collision between the player and ground
     game.physics.arcade.collide(player, ground);
     
     // Check for collisions between the player and all platforms
     game.physics.arcade.collide(player, platforms);
+    game.physics.arcade.overlap(coins, player, collectCoin);
     
     if (keys.left.isDown) {
         //  Move to the left
