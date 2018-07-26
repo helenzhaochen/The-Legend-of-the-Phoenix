@@ -12,6 +12,7 @@ function preload() {
     game.load.image('castle', 'Castle.png');
     game.load.spritesheet('coin', 'assets/coin.png',20,22);
     game.load.spritesheet('arrow','assets/arrow.png')
+    game.load.audio('boden', ['assets/ACTIONMUSIC.mp3', 'assets/ACTIONMUSIC.mp3']);
 }
 
 //Declare variables outside of functions.
@@ -21,6 +22,7 @@ var player;
 var map;
 var ground;
 var bow;
+
 
 
 function create() {
@@ -96,12 +98,21 @@ function create() {
     // Prevent the ledges from moving
     ledge1.body.immovable = true;
     ledge2.body.immovable = true;
+    
+    music = game.add.audio('ACTIONMUSIC.mp3');
+    game.input.onDown.add(changeVolume, this);
 }
+<<<<<<< HEAD
+=======
 
+<<<<<<< HEAD
 var collectCoin = function(player, coin) {
   console.log('im on the coin');
 coin.kill()
 };
+=======
+>>>>>>> 13814ff1f32e07cac20be5dda915a55c0e96aae9
+>>>>>>> 59cc42d3e2c78289b537fea1b0a3ca4d956fa3e9
 function update() {
     //Collision between the player and ground
     game.physics.arcade.collide(player, ground);
@@ -152,7 +163,4 @@ function update() {
         weapon.fire();
     }
 
-    
-
 }
-
