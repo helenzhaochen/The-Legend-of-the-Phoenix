@@ -6,10 +6,9 @@ function preload() {
     game.load.image('ground', 'assets/platform.png');
     game.load.image('star', 'assets/star.png');
     game.load.image('Princess3s', 'Images/Princess3s.PNG');
-    game.load.spritesheet('Princess', 'assets/Pixel_princesslr.png', 32,40);
-    game.load.tilemap('level1', 'Kingdom.json', null, Phaser.Tilemap.TILED_JSON);
-    game.load.image('tiles', 'Tileset.png');
-    game.load.image('castle', 'Castle.png');
+    game.load.spritesheet('Princess', 'assets/Pixel_Princesslr.png', 32,40);
+    game.load.tilemap('level1', 'Level1Small.json', null, Phaser.Tilemap.TILED_JSON);
+    game.load.image('tiles', 'TileSet.png');;
     game.load.spritesheet('coin', 'assets/coin.png',20,22);
     game.load.spritesheet('arrow','assets/arrow.png')
     game.load.audio('boden', ['assets/ACTIONMUSIC.mp3', 'assets/ACTIONMUSIC.mp3']);
@@ -29,9 +28,19 @@ function create() {
 
     map = game.add.tilemap('level1');
     map.addTilesetImage('TileSet', 'tiles');
-    map.addTilesetImage('Castle', 'castle');
     
-    map.createLayer('Ground');
+    var groundLayer = map.createLayer('Ground');
+    groundLayer.setScale(4);
+    var ground2Layer = map.createLayer('Ground 2');
+    ground2Layer.setScale(4);
+    var waterLayer = map.createLayer('water');
+    waterLayer.setScale(4);
+    var buildingLater = map.createLayer('Building');
+    buildingLater.setScale(4);
+    
+    
+    game.camera.follow(player);
+    
 
     // weapon section
     weapon = game.add.weapon(40, 'arrow');
@@ -41,26 +50,9 @@ function create() {
 
     fireButton = this.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR);
 
-    // Ground
-    platforms = game.add.group();
-    
-    //Create the ground
-    ground = platforms.create(0,game.world.height - 40,'ground');
 
-    // Double size of the ground
-    ground.scale.setTo(2, 2);
-    
-    //Enable collision
-    game.physics.arcade.enable(ground);
-    
-    //Stops the ground from falling
-    ground.body.immovable = true;
-    
     //Add dude
     player = game.add.sprite(32, game.world.height - 150, 'Princess');
-
-    game.world.setBounds(0, 0, 1920, 1920);
-    game.camera.follow(player);
 
     coins = game.add.group();
     coins.create(200,200,'coin');
@@ -75,6 +67,10 @@ function create() {
     game.physics.arcade.enable(player);
     game.physics.arcade.enable(coins);
     
+    game.world.setBounds(0, 0, 5000, 5000);
+    game.camera.follow(player);
+    
+    
     
     //Controls
     keys = game.input.keyboard.createCursorKeys();
@@ -87,38 +83,23 @@ function create() {
     
     weapon.trackSprite(player, 0, 0, true);
     
-
-    // Add ledge
-    var ledge1 = platforms.create(400, 400, 'ground');
-    var ledge2 = platforms.create(-150, 250, 'ground');
     
-   // Enable physics on platforms
-    game.physics.arcade.enable(platforms);
-    
-    // Prevent the ledges from moving
-    ledge1.body.immovable = true;
-    ledge2.body.immovable = true;
-    
+ 
     music = game.add.audio('ACTIONMUSIC.mp3');
-    game.input.onDown.add(changeVolume, this);
 }
-<<<<<<< HEAD
-=======
 
-<<<<<<< HEAD
+
 var collectCoin = function(player, coin) {
   console.log('im on the coin');
 coin.kill()
 };
-=======
->>>>>>> 13814ff1f32e07cac20be5dda915a55c0e96aae9
->>>>>>> 59cc42d3e2c78289b537fea1b0a3ca4d956fa3e9
+
 function update() {
     //Collision between the player and ground
     game.physics.arcade.collide(player, ground);
     
     // Check for collisions between the player and all platforms
-    game.physics.arcade.collide(player, platforms);
+    game.physics.arcade.collide(player, ground);
     game.physics.arcade.overlap(coins, player, collectCoin);
     
     if (keys.left.isDown) {
