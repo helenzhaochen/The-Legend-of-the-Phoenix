@@ -1,4 +1,4 @@
-var game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, 'game-div', { preload: preload, create: create, update: update });
+var game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, 'game-div', { preload: preload, create: create, update: update, render: render });
 
 function preload() {
 
@@ -10,8 +10,8 @@ function preload() {
     game.load.tilemap('level1', 'Level1Small.json', null, Phaser.Tilemap.TILED_JSON);
     game.load.image('tiles', 'Tileset.png');
     game.load.spritesheet('coin', 'assets/coin.png',20,22);
-    game.load.spritesheet('arrow','assets/arrow.png')
-    game.load.audio('boden', ['assets/ACTIONMUSIC.mp3', 'assets/ACTIONMUSIC.mp3']);
+    game.load.spritesheet('arrow','assets/arrow.png');
+    game.load.audio('actionmusic', ['assets/ACTIONMUSIC.mp3']);
 }
 
 //Declare variables outside of functions.
@@ -21,10 +21,15 @@ var player;
 var map;
 var ground;
 var bow;
+var music;
 
 
 
 function create() {
+    
+    // music
+    music = game.add.audio('actionmusic');
+    game.sound.play('actionmusic', 1, true);
 
     map = game.add.tilemap('level1');
     map.addTilesetImage('TileSet', 'tiles');
@@ -33,7 +38,7 @@ function create() {
 
     // weapon section
     weapon = game.add.weapon(40, 'arrow');
-    weapon.bulletSpeed = 150;
+    weapon.bulletSpeed = 350;
     weapon.fireRate = 100;
     cursors = this.input.keyboard.createCursorKeys();
 
@@ -41,9 +46,12 @@ function create() {
     
 
     game.add.sprite(300,300,'coin');
-    game.add.sprite(300,400,'coin');
     game.add.sprite(300,500,'coin');
     game.add.sprite(500,350,'coin');
+    
+    //Coins grouped
+    coins = game.add.group();
+    coins.enableBody = true;
 
     // Ground
     platforms = game.add.group();
@@ -67,13 +75,8 @@ function create() {
     game.world.setBounds(0, 0, 1920, 1920);
     game.camera.follow(player);
 
-    
-
     //Enabling dude to move
     game.physics.arcade.enable(player);
-    
-    
-    
     //Controls
     keys = game.input.keyboard.createCursorKeys();
     
@@ -85,7 +88,6 @@ function create() {
     coin.animations.play('spin');
     weapon.trackSprite(player, 0, 0, true);
     
-
     // Add ledge
     var ledge1 = platforms.create(400, 400, 'ground');
     var ledge2 = platforms.create(-150, 250, 'ground');
@@ -97,13 +99,7 @@ function create() {
     ledge1.body.immovable = true;
     ledge2.body.immovable = true;
     
-    music = game.add.audio('ACTIONMUSIC.mp3');
-    game.input.onDown.add(changeVolume, this);
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> 13814ff1f32e07cac20be5dda915a55c0e96aae9
 function update() {
     //Collision between the player and ground
     game.physics.arcade.collide(player, ground);
@@ -149,4 +145,8 @@ function update() {
         weapon.fire();
     }
 
+}
+
+function render() {
+    game.debug.soundInfo(music, 20, 32);
 }
